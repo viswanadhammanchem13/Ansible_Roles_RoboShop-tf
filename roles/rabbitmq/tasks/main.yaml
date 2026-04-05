@@ -1,0 +1,63 @@
+  - name: Copying rabbitmq repo
+    ansible.builtin.copy:
+      src: rabbitmq.repo
+      dest: /etc/yum.repos.d/rabbitmq.repo
+
+  - name: Installing rabbitmq
+    ansible.builtin.dnf:
+      name: "{{ item }}"
+      state:  installed
+    loop:
+    - erlang
+    - rabbitmq-server
+
+  - name: Starting and enabling service
+    ansible.builtin.service:
+      name: rabbitmq-server
+      state: started
+      enabled: yes
+
+  - name: install boto3 and botocore
+    ansible.builtin.pip:
+      name: "{{ item }}"
+      executable: pip3.9
+    loop:
+    - boto3
+    - botocore
+
+  # - name: check RabbitMQ user is created or not.
+  #   ansible.builtin.command: 
+  #   register: User_Output
+  #   ignore_errors: true
+
+  - name: Creating RabbitMQ username and password
+    community.rabbitmq.rabbitmq_user:
+      user: roboshop
+      password: "{{ MY_RABBITMQ_PWD }}"
+    register: User_Output
+
+  # - name: Check RabbitMQ user name created or not
+  #   ansible.builtin.debug:
+  #     msg:"User is created with root password"
+  #   when: User_Output
+
+
+  - name: User already exists
+    ansible.builtin.debug:
+      msg: "RabbitMQ user roboshop already exists"
+    when: not User_Output.changed
+
+  - name: User newly created
+    ansible.builtin.debug:
+      msg: "RabbitMQ user roboshop is newly created"
+    when: User_Output.changed
+
+  - name: Setting Permissions for user
+    community.rabbitmq.rabbitmq_user:
+      user: roboshop
+      permissions:
+        - vhost: /
+          configure_priv: .*
+          read_priv: .*
+          write_priv: .*
+      state: present

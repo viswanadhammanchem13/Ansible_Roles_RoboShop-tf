@@ -1,0 +1,1 @@
+MY_RABBITMQ_PWD: "{{ lookup('amazon.aws.aws_ssm', '/roboshop/rabbitmq/rabbitmq_rootpassword', region='us-east-1', decrypt= True) }}"
