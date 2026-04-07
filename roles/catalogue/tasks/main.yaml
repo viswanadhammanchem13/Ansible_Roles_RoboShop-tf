@@ -41,10 +41,10 @@
     name: common
     tasks_from: systemd
 
-- name: Deployment New Version
-  tags:
-   - deployment
-  include_role:
-  # import_role: 
-    name: common
-    tasks_from: deployment
+# - name: Deployment New Version
+#   tags:
+#    - deployment
+#   include_role:
+#   # import_role: 
+#     name: common
+#     tasks_from: deployment
