@@ -1,1 +1,1 @@
-MONGODB_HOST: mongodb-{{ env }}.manchem.site
+MONGODB_HOST: mongodb.backend-{{ env }}.manchem.site
