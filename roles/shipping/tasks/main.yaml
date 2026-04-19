@@ -15,7 +15,7 @@
     name: all
     login_user: root
     login_password: RoboShop@1
-    login_host: mysql.manchem.site
+    login_host: mysql.backend-{{ env }}.manchem.site
     state: import
     target: "{{ item }}"
   loop:
