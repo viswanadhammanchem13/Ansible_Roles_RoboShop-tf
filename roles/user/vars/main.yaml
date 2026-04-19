@@ -1,2 +1,2 @@
-MONGODB_HOST: mongodb.manchem.site
-REDIS_HOST: redis.manchem.site
+MONGODB_HOST: mongodb.backend-{{ env }}.manchem.site
+REDIS_HOST: redis.backend-{{ env }}.manchem.site
