@@ -1,2 +1,2 @@
 CATALOGUE_HOST: catalogue.backend-{{ env }}.manchem.site
-REDIS_HOST: redis.backend-{{ env }}.manchem.site
+REDIS_HOST: redis-{{ env }}.manchem.site
